@@ -2,6 +2,7 @@ package arff;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,8 +30,29 @@ public class Reader {
 			setAtribute(row,data);
 		}
 		
+		while (s.hasNext()) {
+			row = s.nextLine();
+			setData(row,data);
+		}
 		s.close();
 		return data;
+	}
+
+	private static void setData(String row, Data data) {
+//		String regex = "('(.*?)'|(?))";
+//		Matcher m = getMatcher(regex, row);
+//		ArrayList<String> cells = new ArrayList<String>();
+//		while (m.find()) {
+//			cells.add(m.group(1));
+//		}
+		if (!isComment(row)) {
+		System.out.println(row);
+		String[] temp = row.split(",");
+		ArrayList<String> cells = new ArrayList<String>(); 
+		for (String s : temp)
+			cells.add(s);
+		data.addData(cells);
+		}
 	}
 
 	private static void setAtribute(String row, Data d) {

@@ -33,6 +33,14 @@ public class Data {
 		return rows;
 	}
 
+	public void addData(ArrayList<String> cells) {
+		if (cells.size() != attribute.size())
+			throw new IllegalArgumentException("Wrong size on row, was "
+					+ cells.size() + " expected " + attribute.size());
+		String[] row = cells.toArray(new String[0]);
+		rows.add(row);
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -40,7 +48,12 @@ public class Data {
 		sb.append(relation).append(nl);
 
 		sb.append("Number of attributes: ").append(attribute.size()).append(nl);
-
+		sb.append("-----------").append(nl);
+		for (String a : attribute)
+			sb.append(a).append(nl);
+		sb.append("-----------").append(nl);
+		
+		
 		return sb.toString();
 	}
 
