@@ -3,6 +3,8 @@ package arff;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Reader {
 
@@ -34,7 +36,9 @@ public class Reader {
 	private static void setAtribute(String row, Data d) {
 		if (startWith(row,ATTRIBUTE)) {
 			String data = pureData(row,ATTRIBUTE);
-			d.addAttribute(data);
+			
+			Pattern p = Pattern.compile("(\\w+) \\w+");
+			Matcher m;
 		}
 		
 	}

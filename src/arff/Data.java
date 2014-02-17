@@ -26,7 +26,9 @@ public class Data implements Iterable<String[]> {
 		return rows.size();
 	}
 
-	
+	public ArrayList<String> getAttributes() {
+		return attribute;
+	}
 	
 	@Override
 	public String toString() {
