@@ -37,16 +37,25 @@ public class Reader {
 		if (startWith(row,ATTRIBUTE)) {
 			String data = pureData(row,ATTRIBUTE);
 			
-			Pattern p = Pattern.compile("(\\w+) \\w+");
-			Matcher m = p.matcher(data);
 			
-			
-			if (m.find()) {
-				System.out.println(m.group());
-				d.addAttribute(data);
+			Matcher m = null;
+			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{.*\\}",row)).find()) {
+				d.addAttribute(m.group(1));
+			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{.*\\}",row)).find()) {
+				d.addAttribute(m.group(1));
+			} else {
+				System.err.println("Could not undestand attribute!");
+				System.err.println(data);
+				throw new IllegalArgumentException();
 			}
 		}
 		
+	}
+	
+	private static Matcher getMatcher(String regex, String data) {
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(data);
+		return m;
 	}
 	
 	private static boolean startWith(String row, String prefix) {
