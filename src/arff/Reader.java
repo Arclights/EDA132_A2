@@ -22,10 +22,9 @@ public class Reader {
 		}
 		data.setRelation(relation);
 		
-		while (s.hasNext() && !!!!!isData(row)) {
+		while (s.hasNext() && !isData(row)) {
 			row = s.nextLine();
 			setAtribute(row,data);
-			
 		}
 		
 		s.close();
@@ -35,10 +34,7 @@ public class Reader {
 	private static void setAtribute(String row, Data d) {
 		if (startWith(row,ATTRIBUTE)) {
 			String data = pureData(row,ATTRIBUTE);
-			
-			
-			
-			System.out.println(data);
+			d.addAttribute(data);
 		}
 		
 	}
