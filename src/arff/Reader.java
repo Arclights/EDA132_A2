@@ -33,9 +33,9 @@ public class Reader {
 	}
 
 	private static void setAtribute(String row, Data d) {
-		String rowUpper = row.toUpperCase();
 		if (startWith(row,ATTRIBUTE)) {
 			String data = pureData(row,ATTRIBUTE);
+			
 			
 			
 			System.out.println(data);
