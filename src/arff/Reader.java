@@ -38,7 +38,13 @@ public class Reader {
 			String data = pureData(row,ATTRIBUTE);
 			
 			Pattern p = Pattern.compile("(\\w+) \\w+");
-			Matcher m;
+			Matcher m = p.matcher(data);
+			
+			
+			if (m.find()) {
+				System.out.println(m.group());
+				d.addAttribute(data);
+			}
 		}
 		
 	}
