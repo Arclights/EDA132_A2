@@ -3,7 +3,7 @@ package tree;
 import java.util.HashMap;
 
 public class Node {
-	private HashMap<String, Node> children;
+	protected HashMap<String, Node> children;
 	protected int depth;
 
 	public Node() {
@@ -25,14 +25,4 @@ public class Node {
 		children.put(value, child);
 	}
 
-	@Override
-	public String toString() {
-		String tabs = new String(new char[depth]).replace("\0", "\t");
-//		String out = tabs + "Children:\n" + tabs + "------------";
-		String out = "";
-		for (String label : children.keySet()) {
-			out += tabs+"Label: " + label+"\n"  + children.get(label);
-		}
-		return out;
-	}
 }

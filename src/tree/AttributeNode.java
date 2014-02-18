@@ -11,7 +11,11 @@ public class AttributeNode extends Node {
 	@Override
 	public String toString() {
 		String tabs = new String(new char[depth]).replace("\0", "\t");
-		return tabs + "Arttribute: "+attribute+"\n" + super.toString() + "\n";
+		String out = "";
+		for (String label : children.keySet()) {
+			out += "\n"+tabs+attribute+" = " + label  + children.get(label);
+		}
+		return out;
 	}
 
 }
