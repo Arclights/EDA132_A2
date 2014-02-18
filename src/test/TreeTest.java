@@ -1,4 +1,8 @@
-package tree;
+package test;
+
+import tree.AttributeNode;
+import tree.GoalNode;
+import tree.Tree;
 
 public class TreeTest {
 
