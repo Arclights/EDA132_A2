@@ -2,6 +2,7 @@ package arff;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,18 +30,54 @@ public class Reader {
 			setAtribute(row,data);
 		}
 		
+		while (s.hasNext()) {
+			row = s.nextLine();
+			setData(row,data);
+		}
 		s.close();
 		return data;
+	}
+
+	private static void setData(String row, Data data) {
+//		String regex = "('(.*?)'|(?))";
+//		Matcher m = getMatcher(regex, row);
+//		ArrayList<String> cells = new ArrayList<String>();
+//		while (m.find()) {
+//			cells.add(m.group(1));
+//		}
+		if (!isComment(row)) {
+		System.out.println(row);
+		String[] temp = row.split(",");
+		ArrayList<String> cells = new ArrayList<String>(); 
+		for (String s : temp)
+			cells.add(s);
+		data.addData(cells);
+		}
 	}
 
 	private static void setAtribute(String row, Data d) {
 		if (startWith(row,ATTRIBUTE)) {
 			String data = pureData(row,ATTRIBUTE);
 			
-			Pattern p = Pattern.compile("(\\w+) \\w+");
-			Matcher m;
+			
+			Matcher m = null;
+			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{.*\\}",row)).find()) {
+				d.addAttribute(m.group(1));
+			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{.*\\}",row)).find()) {
+				d.addAttribute(m.group(1));
+			} else {
+				System.err.println("Could not undestand attribute!");
+				System.err.println(data);
+				throw new IllegalArgumentException();
+			}
 		}
 		
+	}
+	
+	private static Matcher getMatcher(String regex, String data) {
+		Pattern p = Pattern.compile(regex);
+		Matcher m = p.matcher(data);
+		return m;
 	}
 	
 	private static boolean startWith(String row, String prefix) {
