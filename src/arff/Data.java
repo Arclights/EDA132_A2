@@ -7,10 +7,12 @@ public class Data {
 
 	private String relation;
 	private ArrayList<String> attribute;
+	private HashMap<String, String[]> attributeValues;
 	private ArrayList<HashMap<String, String>> rows;
 
 	Data() {
 		attribute = new ArrayList<String>();
+		attributeValues = new HashMap<String, String[]>();
 		rows = new ArrayList<HashMap<String, String>>();
 	}
 
@@ -18,8 +20,9 @@ public class Data {
 		this.relation = relation;
 	}
 
-	void addAttribute(String a) {
+	void addAttribute(String a, String[] values) {
 		attribute.add(a);
+		attributeValues.put(a, values);
 	}
 
 	public int getSize() {
@@ -30,8 +33,12 @@ public class Data {
 		return attribute;
 	}
 
-	public ArrayList<HashMap<String, String>> getData() {
+	public ArrayList<HashMap<String, String>> getExamples() {
 		return rows;
+	}
+
+	public HashMap<String, String[]> getattributeValues() {
+		return attributeValues;
 	}
 
 	public void addData(ArrayList<String> cells) {
@@ -57,7 +64,7 @@ public class Data {
 		for (String a : attribute)
 			sb.append(a).append(nl);
 		sb.append("-----------").append(nl);
-		for(HashMap<String, String> row:rows){
+		for (HashMap<String, String> row : rows) {
 			sb.append(row).append(nl);
 		}
 

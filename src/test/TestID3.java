@@ -13,8 +13,8 @@ public class TestID3 {
 	public static void main(String[] args) {
 		try {
 			Data d = Reader.getDataFromFile(new File("files/restaurant.arff"));
-			Tree tree = ID3.decisionTreeLearning(d.getData(),
-					d.getAttributes(), null);
+			Tree tree = ID3.decisionTreeLearning(d.getExamples(),
+					d.getAttributes(), d.getattributeValues(), null);
 			System.out.println(tree);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block

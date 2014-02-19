@@ -46,7 +46,7 @@ public class Reader {
 		// cells.add(m.group(1));
 		// }
 		if (!isComment(row)) {
-//			System.out.println(row);
+			// System.out.println(row);
 			String[] temp = row.replaceAll("[\' ]", "").split(",");
 			ArrayList<String> cells = new ArrayList<String>();
 			for (String s : temp)
@@ -60,12 +60,16 @@ public class Reader {
 			String data = pureData(row, ATTRIBUTE);
 
 			Matcher m = null;
-			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{.*\\}", row)).find()) {
-				d.addAttribute(m.group(1));
-				// System.out.println("Attribute: " +m.group());
-			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{.*\\}", row))
+			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{(.*)\\}", row))
 					.find()) {
-				d.addAttribute(m.group(1));
+//				System.out.println(m.group());
+//				System.out.println(m.groupCount());
+//				System.out.println("Attribute: " + m.group(2));
+				d.addAttribute(m.group(1),m.group(2).replaceAll("[\' ]", "").split(","));
+			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{(.*)\\}", row))
+					.find()) {
+				d.addAttribute(m.group(1),m.group(2).replaceAll("[\' ]", "").split(","));
+//				d.addAttribute(m.group(1));
 			} else {
 				System.err.println("Could not undestand attribute!");
 				System.err.println(data);

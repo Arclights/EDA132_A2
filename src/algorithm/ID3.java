@@ -13,11 +13,10 @@ import tree.Tree;
 public class ID3 {
 	// TODO Ändra så att attributes även innehåller vilka värden attrivutet kan
 	// anta
-	// TODO Varje row kan innehålla en hashmap med alla värden mappade till sina
-	// attribut
 	public static Tree decisionTreeLearning(
 			ArrayList<HashMap<String, String>> examples,
 			ArrayList<String> attributes,
+			HashMap<String, String[]> attributeValues,
 			ArrayList<HashMap<String, String>> parentExamples) {
 		System.out.println("Attributes: " + attributes);
 		System.out.println("Examples: " + examples);
@@ -48,7 +47,7 @@ public class ID3 {
 
 		Tree tree = new Tree(new AttributeNode(A));
 
-		for (String vk : new HashSet<String>(getVks(A, examples))) {
+		for (String vk : attributeValues.get(A)) {
 			ArrayList<HashMap<String, String>> exs = getExs(A, vk, examples);
 			ArrayList<String> attributesMinusA = (ArrayList<String>) attributes
 					.clone();
@@ -58,21 +57,12 @@ public class ID3 {
 			System.out.println("exs:" + exs);
 			System.out.println("attributesMinusA: " + attributesMinusA);
 			System.out.println();
-			Tree subtree = decisionTreeLearning(exs, attributesMinusA, examples);
+			Tree subtree = decisionTreeLearning(exs, attributesMinusA,
+					attributeValues, examples);
 			tree.appendSubtree(vk, subtree);
 		}
 
 		return tree;
-	}
-
-	private static ArrayList<String> getVks(String attribute,
-			ArrayList<HashMap<String, String>> examples) {
-		ArrayList<String> vks = new ArrayList<String>();
-		for (HashMap<String, String> example : examples) {
-			vks.add(example.get(attribute));
-		}
-		System.out.println("vks: " + vks);
-		return vks;
 	}
 
 	private static ArrayList<HashMap<String, String>> getExs(String attribute,
