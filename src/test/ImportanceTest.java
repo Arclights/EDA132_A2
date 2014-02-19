@@ -9,6 +9,7 @@ public class ImportanceTest {
 
 	public ImportanceTest() {
 		ArrayList<HashMap<String, String>> examples = MockData.getExamples();
+		System.out.println("B(0.99) = "+Importance.B(0.99));
 		System.out.println("Gain(Patrons) = "
 				+ Importance.importance("Pat", examples));
 		System.out.println("Gain(Type) = "

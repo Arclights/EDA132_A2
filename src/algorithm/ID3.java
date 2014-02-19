@@ -36,7 +36,8 @@ public class ID3 {
 		for (int i = 0; i < attributes.size() - 1; i++) {
 			String attr = attributes.get(i);
 			double importance = Importance.importance(attr, examples);
-			if (importance >= largestImportance) {
+			System.out.println("A: "+attr+"\timportance: "+importance);
+			if (importance > largestImportance) {
 				largestImportance = importance;
 				A = attr;
 			}

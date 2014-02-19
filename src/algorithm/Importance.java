@@ -26,7 +26,7 @@ public class Importance {
 		return out;
 	}
 
-	private static double B(double q) {
+	public static double B(double q) {
 		return -(q * log2(q) + (1 - q) * log2(1 - q));
 	}
 

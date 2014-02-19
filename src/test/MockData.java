@@ -28,7 +28,7 @@ public class MockData {
 		x2.put("Pat", "Full");
 		x2.put("Price", "$");
 		x2.put("Rain", "No");
-		x2.put("Res", "Yes");
+		x2.put("Res", "No");
 		x2.put("Type", "Thai");
 		x2.put("Est", "30-60");
 		x2.put("Goal", "No");
@@ -56,7 +56,7 @@ public class MockData {
 		x4.put("Rain", "Yes");
 		x4.put("Res", "No");
 		x4.put("Type", "Thai");
-		x4.put("Est", ">60");
+		x4.put("Est", "10-30");
 		x4.put("Goal", "Yes");
 		examples.add(x4);
 		HashMap<String, String> x5 = new HashMap<String, String>();
@@ -190,6 +190,90 @@ public class MockData {
 		// "No", "No", "Burger", "30-60", "Yes" });
 		return examples;
 	}
+	
+	
+	public static ArrayList<HashMap<String, String>> getExamplesPatFull() {
+		ArrayList<HashMap<String, String>> examples = new ArrayList<HashMap<String, String>>();
+		HashMap<String, String> x2 = new HashMap<String, String>();
+		x2.put("Alt", "Yes");
+		x2.put("Bar", "No");
+		x2.put("Fri", "No");
+		x2.put("Hun", "Yes");
+		x2.put("Pat", "Full");
+		x2.put("Price", "$");
+		x2.put("Rain", "No");
+		x2.put("Res", "No");
+		x2.put("Type", "Thai");
+		x2.put("Est", "30-60");
+		x2.put("Goal", "No");
+		examples.add(x2);
+		HashMap<String, String> x4 = new HashMap<String, String>();
+		x4.put("Alt", "Yes");
+		x4.put("Bar", "No");
+		x4.put("Fri", "Yes");
+		x4.put("Hun", "Yes");
+		x4.put("Pat", "Full");
+		x4.put("Price", "$");
+		x4.put("Rain", "Yes");
+		x4.put("Res", "No");
+		x4.put("Type", "Thai");
+		x4.put("Est", "10-30");
+		x4.put("Goal", "Yes");
+		examples.add(x4);
+		HashMap<String, String> x5 = new HashMap<String, String>();
+		x5.put("Alt", "Yes");
+		x5.put("Bar", "No");
+		x5.put("Fri", "Yes");
+		x5.put("Hun", "No");
+		x5.put("Pat", "Full");
+		x5.put("Price", "$$$");
+		x5.put("Rain", "No");
+		x5.put("Res", "Yes");
+		x5.put("Type", "French");
+		x5.put("Est", ">60");
+		x5.put("Goal", "No");
+		examples.add(x5);
+		HashMap<String, String> x9 = new HashMap<String, String>();
+		x9.put("Alt", "No");
+		x9.put("Bar", "Yes");
+		x9.put("Fri", "Yes");
+		x9.put("Hun", "No");
+		x9.put("Pat", "Full");
+		x9.put("Price", "$");
+		x9.put("Rain", "Yes");
+		x9.put("Res", "No");
+		x9.put("Type", "Burger");
+		x9.put("Est", ">60");
+		x9.put("Goal", "No");
+		examples.add(x9);
+		HashMap<String, String> x10 = new HashMap<String, String>();
+		x10.put("Alt", "Yes");
+		x10.put("Bar", "Yes");
+		x10.put("Fri", "Yes");
+		x10.put("Hun", "Yes");
+		x10.put("Pat", "Full");
+		x10.put("Price", "$$$");
+		x10.put("Rain", "No");
+		x10.put("Res", "Yes");
+		x10.put("Type", "Italian");
+		x10.put("Est", "10-30");
+		x10.put("Goal", "No");
+		examples.add(x10);
+		HashMap<String, String> x12 = new HashMap<String, String>();
+		x12.put("Alt", "Yes");
+		x12.put("Bar", "Yes");
+		x12.put("Fri", "Yes");
+		x12.put("Hun", "Yes");
+		x12.put("Pat", "Full");
+		x12.put("Price", "$");
+		x12.put("Rain", "No");
+		x12.put("Res", "No");
+		x12.put("Type", "Burger");
+		x12.put("Est", "30-60");
+		x12.put("Goal", "Yes");
+		examples.add(x12);
+		return examples;
+	}
 
 	public static ArrayList<String> getAttributes() {
 		ArrayList<String> attr = new ArrayList<String>();
@@ -198,6 +282,21 @@ public class MockData {
 		attr.add("Fri");
 		attr.add("Hun");
 		attr.add("Pat");
+		attr.add("Price");
+		attr.add("Rain");
+		attr.add("Res");
+		attr.add("Type");
+		attr.add("Est");
+		attr.add("Goal");
+		return attr;
+	}
+	
+	public static ArrayList<String> getAttributesPatFull() {
+		ArrayList<String> attr = new ArrayList<String>();
+		attr.add("Alt");
+		attr.add("Bar");
+		attr.add("Fri");
+		attr.add("Hun");
 		attr.add("Price");
 		attr.add("Rain");
 		attr.add("Res");
