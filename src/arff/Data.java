@@ -9,9 +9,11 @@ public class Data {
 	private ArrayList<String> attribute;
 	private HashMap<String, String[]> attributeValues;
 	private ArrayList<HashMap<String, String>> rows;
+	private String goalAttribute;
 
 	Data() {
 		attribute = new ArrayList<String>();
+
 		attributeValues = new HashMap<String, String[]>();
 		rows = new ArrayList<HashMap<String, String>>();
 	}
@@ -23,6 +25,14 @@ public class Data {
 	void addAttribute(String a, String[] values) {
 		attribute.add(a);
 		attributeValues.put(a, values);
+	}
+
+	void setGoalAttribute(String goalAttribute) {
+		this.goalAttribute = goalAttribute;
+	}
+	
+	public String getGoalAttribute(){
+		return goalAttribute;
 	}
 
 	public int getSize() {

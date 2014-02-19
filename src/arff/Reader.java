@@ -60,16 +60,15 @@ public class Reader {
 			String data = pureData(row, ATTRIBUTE);
 
 			Matcher m = null;
-			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{(.*)\\}", row))
-					.find()) {
-//				System.out.println(m.group());
-//				System.out.println(m.groupCount());
-//				System.out.println("Attribute: " + m.group(2));
-				d.addAttribute(m.group(1),m.group(2).replaceAll("[\' ]", "").split(","));
+			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{(.*)\\}", row)).find()) {
+				d.addAttribute(m.group(1), m.group(2).replaceAll("[\' ]", "")
+						.split(","));
+				d.setGoalAttribute(m.group(1));
 			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{(.*)\\}", row))
 					.find()) {
-				d.addAttribute(m.group(1),m.group(2).replaceAll("[\' ]", "").split(","));
-//				d.addAttribute(m.group(1));
+				d.addAttribute(m.group(1), m.group(2).replaceAll("[\' ]", "")
+						.split(","));
+				d.setGoalAttribute(m.group(1));
 			} else {
 				System.err.println("Could not undestand attribute!");
 				System.err.println(data);

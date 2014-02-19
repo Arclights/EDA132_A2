@@ -2,26 +2,28 @@ package algorithm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
 
 public class Importance {
 	public static double importance(String attribute,
-			ArrayList<HashMap<String, String>> examples) {
+			ArrayList<HashMap<String, String>> examples,
+			HashMap<String, String[]> attributeValues) {
 		int[] pn = getPositivesAndNegatives(null, null, examples);
 		return B((double) pn[0] / (pn[0] + pn[1]))
-				- remainder(attribute, examples, pn);
+				- remainder(attribute, examples, attributeValues, pn);
 	}
 
 	private static double remainder(String attribute,
-			ArrayList<HashMap<String, String>> examples, int[] pn) {
-		Set<String> distinctValues = getDistinctValues(attribute, examples);
+			ArrayList<HashMap<String, String>> examples,
+			HashMap<String, String[]> attributeValues, int[] pn) {
 		double out = 0;
-		for (String distinctValue : distinctValues) {
+		for (String distinctValue : attributeValues.get(attribute)) {
 			int[] pnk = getPositivesAndNegatives(distinctValue, attribute,
 					examples);
-			out += (double) (pnk[0] + pnk[1]) / (pn[0] + pn[1])
-					* B((double) pnk[0] / (pnk[0] + pnk[1]));
+			if (pnk[0] + pnk[1] > 0) {
+				System.out.println("B: "+B((double) pnk[0] / (pnk[0] + pnk[1])));
+				out += (double) (pnk[0] + pnk[1]) / (pn[0] + pn[1])
+						* B((double) pnk[0] / (pnk[0] + pnk[1]));
+			}
 		}
 		return out;
 	}
@@ -37,14 +39,14 @@ public class Importance {
 		return Math.log(x) / Math.log(2);
 	}
 
-	private static Set<String> getDistinctValues(String attribute,
-			ArrayList<HashMap<String, String>> examples) {
-		ArrayList<String> out = new ArrayList<String>();
-		for (HashMap<String, String> example : examples) {
-			out.add(example.get(attribute));
-		}
-		return new HashSet<String>(out);
-	}
+	// private static Set<String> getDistinctValues(String attribute,
+	// ArrayList<HashMap<String, String>> examples) {
+	// ArrayList<String> out = new ArrayList<String>();
+	// for (HashMap<String, String> example : examples) {
+	// out.add(example.get(attribute));
+	// }
+	// return new HashSet<String>(out);
+	// }
 
 	private static int[] getPositivesAndNegatives(String distinctValue,
 			String attribute, ArrayList<HashMap<String, String>> examples) {
