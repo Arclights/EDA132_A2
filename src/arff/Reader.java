@@ -13,7 +13,7 @@ public class Reader {
 	private static final String DATA = "@DATA";
 	private static final String ATTRIBUTE = "@ATTRIBUTE";
 	private static final String COMMENT_TOKEN = "%";
-	
+
 	public static Data getDataFromFile(File input) throws FileNotFoundException {
 		Data data = new Data();
 		Scanner s = new Scanner(input);
@@ -24,46 +24,47 @@ public class Reader {
 			row = s.nextLine();
 		}
 		data.setRelation(relation);
-		
+
 		while (s.hasNext() && !isData(row)) {
 			row = s.nextLine();
-			setAtribute(row,data);
+			setAtribute(row, data);
 		}
-		
+
 		while (s.hasNext()) {
 			row = s.nextLine();
-			setData(row,data);
+			setData(row, data);
 		}
 		s.close();
 		return data;
 	}
 
 	private static void setData(String row, Data data) {
-//		String regex = "('(.*?)'|(?))";
-//		Matcher m = getMatcher(regex, row);
-//		ArrayList<String> cells = new ArrayList<String>();
-//		while (m.find()) {
-//			cells.add(m.group(1));
-//		}
+		// String regex = "('(.*?)'|(?))";
+		// Matcher m = getMatcher(regex, row);
+		// ArrayList<String> cells = new ArrayList<String>();
+		// while (m.find()) {
+		// cells.add(m.group(1));
+		// }
 		if (!isComment(row)) {
-		System.out.println(row);
-		String[] temp = row.split(",");
-		ArrayList<String> cells = new ArrayList<String>(); 
-		for (String s : temp)
-			cells.add(s);
-		data.addData(cells);
+//			System.out.println(row);
+			String[] temp = row.replaceAll("[\' ]", "").split(",");
+			ArrayList<String> cells = new ArrayList<String>();
+			for (String s : temp)
+				cells.add(s);
+			data.addData(cells);
 		}
 	}
 
 	private static void setAtribute(String row, Data d) {
-		if (startWith(row,ATTRIBUTE)) {
-			String data = pureData(row,ATTRIBUTE);
-			
-			
+		if (startWith(row, ATTRIBUTE)) {
+			String data = pureData(row, ATTRIBUTE);
+
 			Matcher m = null;
-			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{.*\\}",row)).find()) {
+			if ((m = getMatcher("'([\\w0-9\\-_]+)'\\s+\\{.*\\}", row)).find()) {
 				d.addAttribute(m.group(1));
-			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{.*\\}",row)).find()) {
+				// System.out.println("Attribute: " +m.group());
+			} else if ((m = getMatcher("([\\w0-9\\-_]+)\\s+\\{.*\\}", row))
+					.find()) {
 				d.addAttribute(m.group(1));
 			} else {
 				System.err.println("Could not undestand attribute!");
@@ -71,22 +72,22 @@ public class Reader {
 				throw new IllegalArgumentException();
 			}
 		}
-		
+
 	}
-	
+
 	private static Matcher getMatcher(String regex, String data) {
 		Pattern p = Pattern.compile(regex);
 		Matcher m = p.matcher(data);
 		return m;
 	}
-	
+
 	private static boolean startWith(String row, String prefix) {
 		String rowUpper = row.toUpperCase();
 		return rowUpper.startsWith(prefix);
 	}
 
 	private static boolean isData(String row) {
-		return startWith(row,DATA);
+		return startWith(row, DATA);
 	}
 
 	private static boolean isComment(String row) {
@@ -94,14 +95,15 @@ public class Reader {
 	}
 
 	private static String getRelation(String row) {
-		if (isComment(row)) return null;
+		if (isComment(row))
+			return null;
 		String rowUpper = row.toUpperCase();
 		if (rowUpper.startsWith(RELATION)) {
-			return pureData(row,RELATION);
+			return pureData(row, RELATION);
 		}
 		return null;
 	}
-	
+
 	private static String pureData(String row, String prefix) {
 		int start = new String(prefix).length();
 		return row.substring(start).trim();

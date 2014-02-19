@@ -19,16 +19,18 @@ public class ID3 {
 			ArrayList<HashMap<String, String>> examples,
 			ArrayList<String> attributes,
 			ArrayList<HashMap<String, String>> parentExamples) {
+		System.out.println("Attributes: " + attributes);
+		System.out.println("Examples: " + examples);
 		if (examples.isEmpty()) {
-			System.out.println("examples.isEmpty()");
+			System.out.println("examples.isEmpty()\n");
 			return new Tree(new GoalNode(pluralityValue(parentExamples)));
 		} else if (hasSameClassifications(examples)) {
-			System.out.println("hasSameClassifications(examples)");
+			System.out.println("hasSameClassifications(examples)\n");
 			HashMap<String, String> example = examples.get(0);
 			return new Tree(new GoalNode(example.get(attributes.get(attributes
 					.size() - 1))));
 		} else if (attributes.isEmpty()) {
-			System.out.println("attributes.isEmpty()");
+			System.out.println("attributes.isEmpty()\n");
 			return new Tree(new GoalNode(pluralityValue(examples)));
 		}
 		String A = "";
@@ -36,7 +38,7 @@ public class ID3 {
 		for (int i = 0; i < attributes.size() - 1; i++) {
 			String attr = attributes.get(i);
 			double importance = Importance.importance(attr, examples);
-			System.out.println("A: "+attr+"\timportance: "+importance);
+			System.out.println("A: " + attr + "\timportance: " + importance);
 			if (importance > largestImportance) {
 				largestImportance = importance;
 				A = attr;
@@ -52,7 +54,6 @@ public class ID3 {
 					.clone();
 			attributesMinusA.remove(A);
 			System.out.println("A: " + A);
-			System.out.println("Attributes: " + attributes);
 			System.out.println("vk: " + vk);
 			System.out.println("exs:" + exs);
 			System.out.println("attributesMinusA: " + attributesMinusA);
@@ -92,7 +93,7 @@ public class ID3 {
 		g = example.get("Goal");
 		for (int i = 1; i < examples.size(); i++) {
 			example = examples.get(i);
-			if (!g.equals("") && example.get("Goal") != g) {
+			if (!g.equals("") && !example.get("Goal").equals(g)) {
 				return false;
 			}
 		}

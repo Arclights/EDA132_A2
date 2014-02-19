@@ -1,16 +1,17 @@
 package arff;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Data {
 
 	private String relation;
 	private ArrayList<String> attribute;
-	private ArrayList<String[]> rows;
+	private ArrayList<HashMap<String, String>> rows;
 
 	Data() {
 		attribute = new ArrayList<String>();
-		rows = new ArrayList<String[]>();
+		rows = new ArrayList<HashMap<String, String>>();
 	}
 
 	void setRelation(String relation) {
@@ -29,7 +30,7 @@ public class Data {
 		return attribute;
 	}
 
-	public ArrayList<String[]> getData() {
+	public ArrayList<HashMap<String, String>> getData() {
 		return rows;
 	}
 
@@ -38,7 +39,11 @@ public class Data {
 			throw new IllegalArgumentException("Wrong size on row, was "
 					+ cells.size() + " expected " + attribute.size());
 		String[] row = cells.toArray(new String[0]);
-		rows.add(row);
+		HashMap<String, String> newRow = new HashMap<String, String>();
+		for (int i = 0; i < row.length; i++) {
+			newRow.put(attribute.get(i), row[i]);
+		}
+		rows.add(newRow);
 	}
 
 	@Override
@@ -52,8 +57,10 @@ public class Data {
 		for (String a : attribute)
 			sb.append(a).append(nl);
 		sb.append("-----------").append(nl);
-		
-		
+		for(HashMap<String, String> row:rows){
+			sb.append(row).append(nl);
+		}
+
 		return sb.toString();
 	}
 
