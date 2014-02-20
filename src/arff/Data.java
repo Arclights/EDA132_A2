@@ -10,12 +10,14 @@ public class Data {
 	private HashMap<String, String[]> attributeValues;
 	private ArrayList<HashMap<String, String>> rows;
 	private String goalAttribute;
-
+	private HashMap<String,Integer> frequenzy;
+	
+	
 	Data() {
 		attribute = new ArrayList<String>();
-
 		attributeValues = new HashMap<String, String[]>();
 		rows = new ArrayList<HashMap<String, String>>();
+		frequenzy = new HashMap<String,Integer>();
 	}
 
 	void setRelation(String relation) {
@@ -61,6 +63,15 @@ public class Data {
 			newRow.put(attribute.get(i), row[i]);
 		}
 		rows.add(newRow);
+		
+		
+		String rowGoal = newRow.get(goalAttribute);
+		Integer i = frequenzy.get(rowGoal);
+		if (i == null) {
+			i = 0;
+		}
+		i++;
+		frequenzy.put(rowGoal,i);
 	}
 
 	@Override
@@ -81,4 +92,8 @@ public class Data {
 		return sb.toString();
 	}
 
+	public void printGoals() {
+		System.out.println(frequenzy);
+	}
+	
 }

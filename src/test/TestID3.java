@@ -12,13 +12,14 @@ public class TestID3 {
 
 	public static void main(String[] args) {
 		try {
-			Data d = Reader.getDataFromFile(new File("files/vote.arff"));
+			Data d = Reader.getDataFromFile(new File("files/restaurant2.arff"));
 			Tree tree = ID3.decisionTreeLearning(d.getExamples(),
 					d.getAttributes(), d.getGoalAttribute(),
 					d.getattributeValues(), null);
 			System.out.println(tree);
+			System.out.println();
+			d.printGoals();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
