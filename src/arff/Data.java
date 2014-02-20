@@ -121,6 +121,12 @@ public class Data {
 		return true;
 	}
 
+	public boolean chi2(HashMap<String,String> treeChoises) {
+		
+		
+		return false;
+	}
+	
 	public void printGoals() {
 		System.out.println(frequenzy);
 	}
