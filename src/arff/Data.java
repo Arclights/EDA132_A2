@@ -121,7 +121,7 @@ public class Data {
 
 		return true;
 	}
-
+	
 	public void printGoals() {
 		System.out.println(frequenzy);
 	}

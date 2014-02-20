@@ -2,6 +2,8 @@ package tree;
 
 import java.util.HashMap;
 
+import arff.Data;
+
 public class Node {
 	protected HashMap<String, Node> children;
 	protected int depth;
@@ -23,6 +25,10 @@ public class Node {
 
 	public void addChild(String value, Node child) {
 		children.put(value, child);
+	}
+	
+	public String Prune(Data data, HashMap<String, String> decisions){
+		return "";
 	}
 
 }

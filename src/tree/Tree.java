@@ -1,5 +1,9 @@
 package tree;
 
+import java.util.HashMap;
+
+import arff.Data;
+
 public class Tree {
 	private Node root;
 
@@ -19,5 +23,9 @@ public class Tree {
 	@Override
 	public String toString() {
 		return root.toString();
+	}
+
+	public void Prune(Data data) {
+		root.Prune(data, new HashMap<String, String>());
 	}
 }
