@@ -93,14 +93,13 @@ public class Data {
 	public HashMap<String, Integer> getPartialFrequenzies(
 			HashMap<String, String> partialDecitions) {
 		HashMap<String, Integer> result = new HashMap<String, Integer>();
-
+		for (String key : frequenzy.keySet()) {
+			result.put(key, 0);
+		}
 		for (HashMap<String, String> row : rows) {
 			if (includes(row, partialDecitions)) {
 				String goal = row.get(goalAttribute);
 				Integer i = result.get(goal);
-				if (i == null) {
-					i = 0;
-				}
 				i++;
 				result.put(goal, i);
 			}
