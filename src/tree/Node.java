@@ -1,10 +1,12 @@
 package tree;
 
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 import arff.Data;
 
-public class Node {
+public abstract class Node {
 	protected HashMap<String, Node> children;
 	protected int depth;
 
@@ -26,9 +28,23 @@ public class Node {
 	public void addChild(String value, Node child) {
 		children.put(value, child);
 	}
-	
-	public String Prune(Data data, HashMap<String, String> decisions){
-		return "";
+
+	public abstract String Prune(Data data, HashMap<String, String> decisions);
+
+	public HashMap<String, String> copyHashMap(HashMap<String, String> map) {
+		HashMap<String, String> out = new HashMap<String, String>();
+		for (String key : map.keySet()) {
+			out.put(key, map.get(key));
+		}
+		return out;
+	}
+
+	public Set<String> copySet(Set<String> set) {
+		Set<String> out = new HashSet<String>();
+		for (String elem : set) {
+			out.add(elem);
+		}
+		return out;
 	}
 
 }
