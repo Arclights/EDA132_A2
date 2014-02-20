@@ -10,14 +10,13 @@ public class Data {
 	private HashMap<String, String[]> attributeValues;
 	private ArrayList<HashMap<String, String>> rows;
 	private String goalAttribute;
-	private HashMap<String,Integer> frequenzy;
-	
-	
+	private HashMap<String, Integer> frequenzy;
+
 	Data() {
 		attribute = new ArrayList<String>();
 		attributeValues = new HashMap<String, String[]>();
 		rows = new ArrayList<HashMap<String, String>>();
-		frequenzy = new HashMap<String,Integer>();
+		frequenzy = new HashMap<String, Integer>();
 	}
 
 	void setRelation(String relation) {
@@ -32,8 +31,8 @@ public class Data {
 	void setGoalAttribute(String goalAttribute) {
 		this.goalAttribute = goalAttribute;
 	}
-	
-	public String getGoalAttribute(){
+
+	public String getGoalAttribute() {
 		return goalAttribute;
 	}
 
@@ -63,15 +62,14 @@ public class Data {
 			newRow.put(attribute.get(i), row[i]);
 		}
 		rows.add(newRow);
-		
-		
+
 		String rowGoal = newRow.get(goalAttribute);
 		Integer i = frequenzy.get(rowGoal);
 		if (i == null) {
 			i = 0;
 		}
 		i++;
-		frequenzy.put(rowGoal,i);
+		frequenzy.put(rowGoal, i);
 	}
 
 	@Override
@@ -92,8 +90,40 @@ public class Data {
 		return sb.toString();
 	}
 
+	public HashMap<String, Integer> getPartialFrequenzies(
+			HashMap<String, String> partialDecitions) {
+		HashMap<String, Integer> result = new HashMap<String, Integer>();
+
+		for (HashMap<String, String> row : rows) {
+			if (includes(row, partialDecitions)) {
+				String goal = row.get(goalAttribute);
+				Integer i = result.get(goal);
+				if (i == null) {
+					i = 0;
+				}
+				i++;
+				result.put(goal, i);
+			}
+		}
+
+		return result;
+	}
+
+	private boolean includes(HashMap<String, String> row,
+			HashMap<String, String> list) {
+		for (String key : list.keySet()) {
+			String correct = list.get(key);
+			String rowData = row.get(key);
+
+			if (!correct.equals(rowData))
+				return false;
+		}
+
+		return true;
+	}
+
 	public void printGoals() {
 		System.out.println(frequenzy);
 	}
-	
+
 }

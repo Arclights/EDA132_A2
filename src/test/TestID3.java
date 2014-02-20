@@ -2,6 +2,7 @@ package test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.HashMap;
 
 import tree.Tree;
 import algorithm.ID3;
@@ -19,6 +20,12 @@ public class TestID3 {
 			System.out.println(tree);
 			System.out.println();
 			d.printGoals();
+			
+			HashMap<String,String> test = new HashMap<String,String>();
+			
+			test.put("Pat", "Full");
+			
+			System.out.println(d.getPartialFrequenzies(test));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
