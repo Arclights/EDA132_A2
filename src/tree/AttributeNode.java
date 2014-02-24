@@ -32,7 +32,7 @@ public class AttributeNode extends Node {
 				HashMap<String, String> newDescisions = copyHashMap(decisions);
 				newDescisions.put(attribute, attributeValue);
 				String newNodeValue = child.Prune(data, newDescisions);
-				if (!newNodeValue.equals("")) {
+				if (newNodeValue!=null) {
 					children.remove(attributeValue);
 					children.put(attributeValue, new GoalNode(newNodeValue));
 				} else {
@@ -42,12 +42,9 @@ public class AttributeNode extends Node {
 		}
 
 		if (!containsAttributeNode) {
-			boolean remove = data.chi2(decisions);
-			if (remove) {
-				return "Yes"; // Ändra
-			} 
+			return data.chi2(decisions);
 		}
-		return "";
+		return null;
 	}
 
 }
