@@ -13,7 +13,8 @@ public class TestID3 {
 
 	public static void main(String[] args) {
 		try {
-			Data d = Reader.getDataFromFile(new File("files/restaurant2.arff"));
+			Data d = Reader.getDataFromFile(new File("files/restaurant3.arff2"));
+			ID3.verbose = true;
 			Tree tree = ID3.decisionTreeLearning(d.getExamples(),
 					d.getAttributes(), d.getGoalAttribute(),
 					d.getattributeValues(), null);

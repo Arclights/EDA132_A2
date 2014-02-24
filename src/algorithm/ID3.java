@@ -11,38 +11,41 @@ import tree.GoalNode;
 import tree.Tree;
 
 public class ID3 {
+
+	public static boolean verbose = false;
+
 	public static Tree decisionTreeLearning(
 			ArrayList<HashMap<String, String>> examples,
 			ArrayList<String> attributes, String goalAttribute,
 			HashMap<String, String[]> attributeValues,
 			ArrayList<HashMap<String, String>> parentExamples) {
-		// System.out.println("Attributes: " + attributes);
-		// System.out.println("Examples: " + examples);
+		print("Attributes: " + attributes);
+		print("Examples: " + examples);
 		if (examples.isEmpty()) {
-			// System.out.println("examples.isEmpty()\n");
+			print("examples.isEmpty()\n");
 			return new Tree(new GoalNode(pluralityValue(parentExamples,
 					goalAttribute)));
 		} else if (hasSameClassifications(examples, goalAttribute)) {
-			// System.out.println("hasSameClassifications(examples)\n");
+			print("hasSameClassifications(examples)\n");
 			return new Tree(new GoalNode(examples.get(0).get(goalAttribute)));
-		} else if (attributes.isEmpty()) {
-			// System.out.println("attributes.isEmpty()\n");
+		} else if (attributes.size() == 1) {
+			print("attributes.isEmpty()\n");
 			return new Tree(new GoalNode(
 					pluralityValue(examples, goalAttribute)));
 		}
 		String A = "";
-		double largestImportance = 0;
+		double largestImportance = -1;
 		for (int i = 0; i < attributes.size() - 1; i++) {
 			String attr = attributes.get(i);
 			double importance = Importance2.informationGain(attr, examples,
 					attributeValues, goalAttribute);
-			// System.out.println("A: " + attr + "\timportance: " + importance);
+			print("A: " + attr + "\timportance: " + importance);
 			if (importance > largestImportance) {
 				largestImportance = importance;
 				A = attr;
 			}
 		}
-		// System.out.println(A);
+		print(A);
 
 		Tree tree = new Tree(new AttributeNode(A));
 
@@ -50,11 +53,11 @@ public class ID3 {
 			ArrayList<HashMap<String, String>> exs = getExs(A, vk, examples);
 			ArrayList<String> attributesMinusA = cloneArrayList(attributes);
 			attributesMinusA.remove(A);
-			// System.out.println("A: " + A);
-			// System.out.println("vk: " + vk);
-			// System.out.println("exs:" + exs);
-			// System.out.println("attributesMinusA: " + attributesMinusA);
-			// System.out.println();
+			print("A: " + A);
+			print("vk: " + vk);
+			print("exs:" + exs);
+			print("attributesMinusA: " + attributesMinusA);
+			print("");
 			Tree subtree = decisionTreeLearning(exs, attributesMinusA,
 					goalAttribute, attributeValues, examples);
 			tree.appendSubtree(vk, subtree);
@@ -69,7 +72,7 @@ public class ID3 {
 			result.add(s);
 		return result;
 	}
-	
+
 	private static ArrayList<HashMap<String, String>> getExs(String attribute,
 			String vk, ArrayList<HashMap<String, String>> examples) {
 		ArrayList<HashMap<String, String>> exs = new ArrayList<HashMap<String, String>>();
@@ -111,6 +114,9 @@ public class ID3 {
 			}
 		}
 		return value;
+	}	
+	public static void print(String s) {
+		if (verbose)
+			System.out.println(s);
 	}
-
 }
