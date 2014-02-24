@@ -13,20 +13,29 @@ public class PruneTest {
 
 	public static void main(String[] args) {
 		try {
-			
-			Data d = Reader.getDataFromFile(new File("files/restaurant2.arff"));
-			Tree tree = ID3.decisionTreeLearning(d.getExamples(),
-					d.getAttributes(), d.getGoalAttribute(),
-					d.getattributeValues(), null);
-			System.out.println("Pre-pruning:");
-			System.out.println(tree);
-			System.out.println("\n\n");
-			Pruning.Prune(tree, d);
-			System.out.println("Post-pruning:");
-			System.out.println(tree);
+			File folder = new File("files");
+			for (File file : folder.listFiles()) {
+				if (file.getAbsolutePath().endsWith(".arff")) {
+					System.out.println("Testing " + file);
+					Data d = Reader.getDataFromFile(file);
+					Tree tree = ID3.decisionTreeLearning(d.getExamples(),
+							d.getAttributes(), d.getGoalAttribute(),
+							d.getattributeValues(), null);
+					int before = tree.hashCode();
+					Pruning.Prune(tree, d);
+					int after = tree.hashCode();
+					if (before != after)
+						System.out.println("was pruned");
+					else
+						System.out.println("was not prnued");
+
+				} else {
+					System.out.println("ignored " + file);
+				}
+			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
 
+	}
 }

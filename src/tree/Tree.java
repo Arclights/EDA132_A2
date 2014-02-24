@@ -28,4 +28,9 @@ public class Tree {
 	public void Prune(Data data) {
 		root.Prune(data, new HashMap<String, String>());
 	}
+	
+	@Override
+	public int hashCode() {
+		return toString().hashCode();
+	}
 }

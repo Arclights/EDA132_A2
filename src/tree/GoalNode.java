@@ -19,6 +19,6 @@ public class GoalNode extends Node {
 
 	@Override
 	public String Prune(Data data, HashMap<String, String> decisions) {
-		return "";
+		return goal;
 	}
 }
