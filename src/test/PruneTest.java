@@ -17,18 +17,22 @@ public class PruneTest {
 			for (File file : folder.listFiles()) {
 				if (file.getAbsolutePath().endsWith(".arff")) {
 					System.out.println("Testing " + file);
-					Data d = Reader.getDataFromFile(file);
-					Tree tree = ID3.decisionTreeLearning(d.getExamples(),
-							d.getAttributes(), d.getGoalAttribute(),
-							d.getattributeValues(), null);
-					int before = tree.hashCode();
-					Pruning.Prune(tree, d);
-					int after = tree.hashCode();
-					if (before != after)
-						System.out.println("was pruned");
-					else
-						System.out.println("was not prnued");
+					try {
 
+						Data d = Reader.getDataFromFile(file);
+						Tree tree = ID3.decisionTreeLearning(d.getExamples(),
+								d.getAttributes(), d.getGoalAttribute(),
+								d.getattributeValues(), null);
+						int before = tree.hashCode();
+						Pruning.Prune(tree, d);
+						int after = tree.hashCode();
+						if (before != after)
+							System.out.println("...was pruned");
+						else
+							System.out.println("...was not prnued");
+					} catch (IllegalArgumentException e) {
+						System.out.println("...could not parse");
+					}
 				} else {
 					System.out.println("ignored " + file);
 				}
@@ -36,6 +40,5 @@ public class PruneTest {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-
 	}
 }
