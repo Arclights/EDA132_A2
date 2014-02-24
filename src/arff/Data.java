@@ -121,10 +121,12 @@ public class Data {
 		return true;
 	}
 
-	public boolean chi2(HashMap<String,String> treeChoises) {
+	public String chi2(HashMap<String,String> treeChoises) {
 		
 		
-		return false;
+		
+		
+		return null;
 	}
 	
 	public void printGoals() {
