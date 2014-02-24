@@ -33,7 +33,7 @@ public class PruneTest {
 							System.out.println(sBefore);
 							System.out.println(sAfter);
 						} else
-							System.out.println("...was not prnued");
+							System.out.println("...was not pruned");
 					} catch (IllegalArgumentException e) {
 						System.out.println("...could not parse");
 					}

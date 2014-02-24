@@ -74,13 +74,6 @@ public class Importance2 {
 	}
 
 	public static double B(double q) {
-		return -(q * log2(q));
-	}
-
-	private static double log2(double x) {
-		if (x == 0) { // To avoid inifinity
-			return 0;
-		}
-		return Math.log(x) / Math.log(2);
+		return -(q * Importance.log2(q));
 	}
 }
