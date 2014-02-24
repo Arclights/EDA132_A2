@@ -12,6 +12,10 @@ import arff.Reader;
 public class PruneTest {
 
 	public static void main(String[] args) {
+		for (Object o: System.getProperties().keySet()) {
+			System.out.printf("%s:%s\n",o.toString(),System.getProperty((String)o));
+		}
+		
 		try {
 			File folder = new File("files");
 			for (File file : folder.listFiles()) {
