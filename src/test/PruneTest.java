@@ -24,11 +24,15 @@ public class PruneTest {
 								d.getAttributes(), d.getGoalAttribute(),
 								d.getattributeValues(), null);
 						int before = tree.hashCode();
+						String sBefore = tree.toString();
 						Pruning.Prune(tree, d);
 						int after = tree.hashCode();
-						if (before != after)
+						String sAfter = tree.toString();
+						if (before != after) {
 							System.out.println("...was pruned");
-						else
+							System.out.println(sBefore);
+							System.out.println(sAfter);
+						} else
 							System.out.println("...was not prnued");
 					} catch (IllegalArgumentException e) {
 						System.out.println("...could not parse");

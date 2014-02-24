@@ -48,8 +48,7 @@ public class ID3 {
 
 		for (String vk : attributeValues.get(A)) {
 			ArrayList<HashMap<String, String>> exs = getExs(A, vk, examples);
-			ArrayList<String> attributesMinusA = (ArrayList<String>) attributes
-					.clone();
+			ArrayList<String> attributesMinusA = cloneArrayList(attributes);
 			attributesMinusA.remove(A);
 			// System.out.println("A: " + A);
 			// System.out.println("vk: " + vk);
@@ -64,6 +63,13 @@ public class ID3 {
 		return tree;
 	}
 
+	private static ArrayList<String> cloneArrayList(ArrayList<String> list) {
+		ArrayList<String> result = new ArrayList<String>();
+		for (String s : list)
+			result.add(s);
+		return result;
+	}
+	
 	private static ArrayList<HashMap<String, String>> getExs(String attribute,
 			String vk, ArrayList<HashMap<String, String>> examples) {
 		ArrayList<HashMap<String, String>> exs = new ArrayList<HashMap<String, String>>();
