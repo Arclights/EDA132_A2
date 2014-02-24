@@ -16,6 +16,7 @@ public class PruneTest {
 			File folder = new File("files");
 			for (File file : folder.listFiles()) {
 				if (file.getAbsolutePath().endsWith(".arff")) {
+					System.out.println("-----------------");
 					System.out.println("Testing " + file);
 					try {
 
@@ -30,10 +31,15 @@ public class PruneTest {
 						String sAfter = tree.toString();
 						if (before != after) {
 							System.out.println("...was pruned");
+							System.out.println("Before:");
 							System.out.println(sBefore);
+							System.out.println("After:");
 							System.out.println(sAfter);
 						} else
 							System.out.println("...was not prnued");
+						System.out.println("Before:");
+						System.out.println(sBefore);
+							
 					} catch (IllegalArgumentException e) {
 						System.out.println("...could not parse");
 					}
