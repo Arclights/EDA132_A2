@@ -13,6 +13,7 @@ public class PruneTest {
 
 	public static void main(String[] args) {
 		try {
+			
 			Data d = Reader.getDataFromFile(new File("files/restaurant2.arff"));
 			Tree tree = ID3.decisionTreeLearning(d.getExamples(),
 					d.getAttributes(), d.getGoalAttribute(),
