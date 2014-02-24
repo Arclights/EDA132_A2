@@ -35,11 +35,11 @@ public class PruneTest {
 							System.out.println(sBefore);
 							System.out.println("After:");
 							System.out.println(sAfter);
-						} else
-							System.out.println("...was not prnued");
-						System.out.println("Before:");
-						System.out.println(sBefore);
-							
+						} else {
+							System.out.println("...was not pruned");
+							System.out.println("Before:");
+							System.out.println(sBefore);
+						}
 					} catch (IllegalArgumentException e) {
 						System.out.println("...could not parse");
 					}

@@ -32,21 +32,12 @@ public class Importance {
 		return -(q * log2(q) + (1 - q) * log2(1 - q));
 	}
 
-	private static double log2(double x) {
+	public static double log2(double x) {
 		if (x == 0) { // To avoid inifinity
 			return 0;
 		}
 		return Math.log(x) / Math.log(2);
 	}
-
-	// private static Set<String> getDistinctValues(String attribute,
-	// ArrayList<HashMap<String, String>> examples) {
-	// ArrayList<String> out = new ArrayList<String>();
-	// for (HashMap<String, String> example : examples) {
-	// out.add(example.get(attribute));
-	// }
-	// return new HashSet<String>(out);
-	// }
 
 	private static int[] getPositivesAndNegatives(String distinctValue,
 			String attribute, ArrayList<HashMap<String, String>> examples) {
