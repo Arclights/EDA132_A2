@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Data {
@@ -15,8 +16,8 @@ public class Data {
 	private String goalAttribute;
 	private HashMap<String, Integer> frequenzy;
 	private static final String CHI2_FILE = "files/chi2.data";
-	private HashMap<Integer,Double> chi2;
-	
+	private HashMap<Integer, Double> chi2;
+
 	Data() throws FileNotFoundException {
 		attribute = new ArrayList<String>();
 		attributeValues = new HashMap<String, String[]>();
@@ -127,41 +128,42 @@ public class Data {
 		return true;
 	}
 
-	public String chi2(HashMap<String,String> treeChoises) {
-		HashMap<String,Integer> partialFrequenzies = getPartialFrequenzies(treeChoises);
-		
+	public String chi2(HashMap<String, String> treeChoises) {
+		HashMap<String, Integer> partialFrequenzies = getPartialFrequenzies(treeChoises);
+
 		double numerator = 0;
-		double denominator =0;
-		for (String key : partialFrequenzies.keySet()){
+		double denominator = 0;
+		for (String key : partialFrequenzies.keySet()) {
 			denominator += frequenzy.get(key);
 			numerator += partialFrequenzies.get(key);
 		}
-		double q = numerator/denominator;
-		
-		HashMap<String, Double> freqHat = new HashMap<String,Double>();
-		
-		for (String key:partialFrequenzies.keySet()){
+		double q = numerator / denominator;
+
+		HashMap<String, Double> freqHat = new HashMap<String, Double>();
+
+		for (String key : partialFrequenzies.keySet()) {
 			double val = frequenzy.get(key) * q;
 			freqHat.put(key, val);
 		}
-		
+
 		double delta = 0;
-		
+
 		for (String key : partialFrequenzies.keySet()) {
-			double a = Math.pow(partialFrequenzies.get(key)-freqHat.get(key), 2);
+			double a = Math.pow(partialFrequenzies.get(key) - freqHat.get(key),
+					2);
 			double b = freqHat.get(key);
-			
-			delta += a/b;
+
+			delta += a / b;
 		}
-		
-		if (delta > chi2.get(partialFrequenzies.size()-1)) {
+
+		if (delta > chi2.get(partialFrequenzies.size() - 1)) {
 			return null;
 		}
-		
+
 		int max = -1;
 		String maxKey = null;
-		
-		for (String key : partialFrequenzies.keySet() ) {
+
+		for (String key : partialFrequenzies.keySet()) {
 			int i = partialFrequenzies.get(key);
 			if (i > max) {
 				max = i;
@@ -170,23 +172,41 @@ public class Data {
 		}
 		return maxKey;
 	}
-	
+
 	private void loadChi2() throws FileNotFoundException {
-		chi2 = new HashMap<Integer,Double>();
-		
+		chi2 = new HashMap<Integer, Double>();
+
 		Scanner s = new Scanner(new File(CHI2_FILE));
-		
+
 		s.nextLine();
-		
 		while (s.hasNext()) {
-			int df = s.nextInt();
-			double p = s.nextDouble();
-			s.nextLine();
-			chi2.put(df,p);
+			String line = s.nextLine();
+			Scanner row = new Scanner(line);
+			String df = row.next();
+			String p = row.next();
+
+			try {
+				int df_i = Integer.parseInt(df);
+				double p_i = Double.parseDouble(p);
+				chi2.put(df_i, p_i);
+			} catch (InputMismatchException e) {
+				try {
+					
+				} catch (InputMismatchException e2) {
+
+				}
+
+				System.out.println("error in parsing row...");
+				System.out.println(line);
+				System.out.println("Double: " + p);
+				System.out.println("Int: " + df);
+				System.out.println("Terminating!");
+				System.exit(1);
+			}
 		}
 		s.close();
 	}
-	
+
 	public void printGoals() {
 		System.out.println(frequenzy);
 	}
